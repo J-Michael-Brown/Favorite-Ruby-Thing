@@ -4,7 +4,7 @@ also_reload('lib/**/*.rb')
 require('./lib/item')
 
 get('/') do
-  @list = Item.all()
+  @list = Item.sort()
   erb(:list)
 end
 
@@ -18,5 +18,6 @@ end
 
 get('/items/:id') do
   @item = Item.find(params[:id])
+  @item.increase_score
   erb(:item)
 end
