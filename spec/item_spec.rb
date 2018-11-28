@@ -50,4 +50,28 @@ describe("Item") do
       expect(Item.find(2)).to(eq(item2))
     end
   end
+
+  describe("#increase_score") do
+    it("increases an item's score when it is viewed") do
+      item = Item.new("tacos")
+      item.save()
+      expect(item.increase_score()).to(eq(1))
+    end
+  end
+
+  describe(".sort") do
+    it("sorts the class list of objects based score of the item") do
+      taco = Item.new("taco")
+      taco.increase_score(1)
+      taco.save()
+      pizza = Item.new("pizza")
+      pizza.increase_score(3)
+      pizza.save()
+      icecream = Item.new("icecream")
+      icecream.increase_score(2)
+      icecream.save()
+      expect(Item.all).to(eq([taco,pizza,icecream]))
+      expect(Item.sort).to(eq([pizza,icecream,taco]))
+    end
+  end
 end
