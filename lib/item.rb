@@ -9,7 +9,7 @@ class Item
     @score = 0
   end
 
-  def self.all()
+  def self.all
     @@list
   end
 
@@ -22,11 +22,11 @@ class Item
     end
   end
 
-  def save()
+  def save
     @@list.push(self)
   end
 
-  def self.clear()
+  def self.clear
     @@list = []
   end
 
@@ -34,7 +34,19 @@ class Item
     @score += add_by
   end
 
-  def self.sort()
-    @@list.sort_by { |item| -item.score}
+  def self.sort
+    @@list.sort_by! { |item| -item.score}
   end
+
+  def valid?
+    index = 0
+    while index < @@list.length
+      if @name == @@list[index].name
+        return false
+      end
+      index += 1
+    end
+    true
+  end
+
 end

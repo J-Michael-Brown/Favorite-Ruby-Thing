@@ -5,7 +5,7 @@ require('./lib/item')
 require('./lib/stylesheets')
 
 get('/') do
-  @list = Item.sort()
+  @list = Item.sort
   @stylesheet = StylesheetManipulator.get_random_stylesheet
   erb(:list)
 end
@@ -13,8 +13,13 @@ end
 post('/') do
   name = params["name"]
   item = Item.new(name)
-  item.save()
-  @list = Item.all()
+  @error = ""
+  if(item.valid?)
+    item.save()
+  else
+    @error = "This item already exists in your list!"
+  end
+  @list = Item.sort
   @stylesheet = StylesheetManipulator.get_random_stylesheet
   erb(:list)
 end
