@@ -10,4 +10,8 @@ describe('website', {:type => :feature}) do
     click_button('Go!')
     expect(page).to have_content('Dogs')
   end
+  it('opens the users favorite thing') do
+    visit('/items/1')
+    expect(page).to have_content('Dogs')
+  end
 end
